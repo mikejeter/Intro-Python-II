@@ -38,7 +38,9 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
+player_1 = Player('Mike', room['outside'])
 
+print(room['outside'])
 # Write a loop that:
 #
 # * Prints the current room name
@@ -49,27 +51,31 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
-directions = ['n', 's', 'e', 'w']
-p = Player("Mike", room ['outside'])
+direction = input(
+    'Where do you want to go \n  N, S, E, W, Q (please use single letter only Q is to quit)').lower().strip()
 
-print(f'Welcome {p.name}!\nExplore the map by moving North(n), South(s), East(e), or West(w)\nTo exit the game, enter q\n')
-print(f'You are in the {p.current_room.name} - {p.current_room.description}\n')
 
-while True:
-    selection = input('Where to? ').lower().split(' ')
+flag = True
 
-    if selection == 'q':
-        print('Thanks for playing!') 
+
+while flag:
+    current_room = player_1.current_room
+    print("Your current location:", player_1.current_room.name)
+    print(player_1.current_room.description)
+    direction = input(
+        'Where do you want to go \n  N, S, E, W, Q (please use single letter only Q is to quit)').lower()
+    if direction == 'n' and player_1.current_room != None:
+        player_1.current_room = current_room.n_to
+        print('GOING north')
+    elif direction == 's' and player_1.current_room.s_to != None:
+        player_1.current_room = current_room.s_to
+        print('HEADING south')
+    elif direction == 'e' and player_1.current_room.e_to != None:
+        player_1.current_room = current_room.e_to
+        print('MOVING east')
+    elif direction == 'w' and player_1.current_room.w_to != None:
+        player_1.current_room = current_room.w_to
+        print('TRAVELING west')
+    elif direction == 'q':
+        print('Let us do this again')
         break
-
-    try:
-        if selection in directions:
-            try:
-                p.move_room(selection)
-                print(f'The current room is {p.current_room.name} - {p.current_room.description}')
-            except AttributeError:
-                print('No room there, try another direction')
-        else:
-            print('Movement not allowed! Please enter a direction (n, s, e, w) to move around the map')
-    except KeyError:
-        print('Unknown territory! Please enter a valid direction or quit the game')-4
