@@ -1,9 +1,9 @@
 from room import Room
-
+from player import Player
 # Declare all the rooms
 
 room = {
-    'outside':  Room("Outside Cave Entrance",
+    'outside': Room("Outside Cave Entrance",
                      "North of you, the cave mount beckons"),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
@@ -49,3 +49,27 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+directions = ['n', 's', 'e', 'w']
+p = Player("Mike", room ['outside'])
+
+print(f'Welcome {p.name}!\nExplore the map by moving North(n), South(s), East(e), or West(w)\nTo exit the game, enter q\n')
+print(f'You are in the {p.current_room.name} - {p.current_room.description}\n')
+
+while True:
+    selection = input('Where to? ').lower().split(' ')
+
+    if selection == 'q':
+        print('Thanks for playing!') 
+        break
+
+    try:
+        if selection in directions:
+            try:
+                p.move_room(selection)
+                print(f'The current room is {p.current_room.name} - {p.current_room.description}')
+            except AttributeError:
+                print('No room there, try another direction')
+        else:
+            print('Movement not allowed! Please enter a direction (n, s, e, w) to move around the map')
+    except KeyError:
+        print('Unknown territory! Please enter a valid direction or quit the game')-4
