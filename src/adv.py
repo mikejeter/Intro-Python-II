@@ -66,16 +66,16 @@ while flag:
         'Where do you want to go \n  N, S, E, W, Q (please use single letter only Q is to quit)').lower()
     if direction == 'n' and player_1.current_room != None:
         player_1.current_room = current_room.n_to
-        print('GOING north')
+        print('Heading north')
     elif direction == 's' and player_1.current_room.s_to != None:
         player_1.current_room = current_room.s_to
-        print('HEADING south')
+        print('Heading south')
     elif direction == 'e' and player_1.current_room.e_to != None:
         player_1.current_room = current_room.e_to
-        print('MOVING east')
+        print('Heading east')
     elif direction == 'w' and player_1.current_room.w_to != None:
         player_1.current_room = current_room.w_to
-        print('TRAVELING west')
+        print('Heading west')
     elif direction == 'q':
-        print('Let us do this again')
+        print('Maybe next time')
         break
